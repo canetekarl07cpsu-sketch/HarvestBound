@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#183b2a">
+  <title>HarvestBound: Survive All Seasons</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topline">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">🌱</div>
+        <div>
+          <h1>HARVESTBOUND</h1>
+          <div class="subtitle">Survive all seasons</div>
+        </div>
+      </div>
+      <div class="team" hidden></div>
+    </header>
+
+    <section class="game-shell" aria-label="HarvestBound farm game">
+      <div class="play-area">
+        <div class="canvas-wrap">
+          <canvas id="farm" width="840" height="560" aria-label="Farm game board"></canvas>
+          <div id="toast" class="message" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+      <aside class="side-panel" aria-label="Farm status">
+        <section class="season-card" id="season-card">
+          <div id="farm-owner" class="season-label">Your farm • year one</div>
+          <div id="season-name" class="season-name">Spring</div>
+          <div class="day-meta">
+            <div id="day-line" class="day-line">Day 1 of 28</div>
+            <div id="weather-line" class="weather-line">☀️ Sunny · 1:00</div>
+          </div>
+          <div class="day-track"><div id="day-fill" class="day-fill"></div></div>
+        </section>
+        <section class="card">
+          <h2 class="card-title">Season goal</h2>
+          <div class="task-row">
+            <div id="task-check" class="task-check" aria-hidden="true"></div>
+            <div>
+              <div id="task-name" class="task-name">Spring Sprouts</div>
+              <div id="task-note" class="task-note">Harvest 3 crops this Spring · 0 / 3</div>
+            </div>
+          </div>
+        </section>
+        <section class="stats" aria-label="Farm resources">
+          <div class="stat"><div class="stat-label">Coins</div><div id="coins" class="stat-value">35 ✦</div></div>
+          <div class="stat"><div class="stat-label">Harvest</div><div id="harvest" class="stat-value">0 🥕</div></div>
+        </section>
+        <section class="card">
+          <h2 class="card-title">Satchel</h2>
+          <div class="inventory"><span>Seeds</span><strong id="seeds">6 packets</strong></div>
+          <div class="market-note">Seed bundle: 3 for 12 ✦ · Each crop sells for 15 ✦</div>
+          <div class="inventory"><span>Produce</span><strong id="produce">0 crops</strong></div>
+          <div class="inventory"><span>Last sale</span><strong id="last-sale">—</strong></div>
+        </section>
+        <section class="card soil-card" aria-labelledby="soil-title">
+          <h2 id="soil-title" class="card-title">Soil &amp; crops</h2>
+          <div id="soil-summary" class="soil-summary">Your planting beds</div>
+          <div id="soil-grid" class="soil-grid" aria-live="polite" aria-label="Current field soil status"></div>
+          <div class="soil-legend"><span><i class="legend-dot soil-open"></i>Open</span><span><i class="legend-dot soil-prepared"></i>Tilled</span><span><i class="legend-dot soil-growing"></i>Growing</span><span><i class="legend-dot soil-ready"></i>Ready</span></div>
+        </section>
+        <section class="card">
+          <h2 class="card-title">Choose a tool</h2>
+          <div class="current-tool" aria-live="polite">
+            <span id="current-tool-icon" class="current-tool-icon" aria-label="Hoe">
+              <svg class="hoe-illustration" viewBox="0 0 40 40" role="img" aria-label="Hoe">
+                <path d="M11 31 27 10" stroke="#855a35" stroke-width="4" stroke-linecap="round"/>
+                <path d="m23 8 10 4-4 7-10-4z" fill="#89958a" stroke="#53635a" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="current-tool-copy"><strong id="current-tool-name">Hoe</strong><span id="current-tool-description">Till a field patch before planting.</span></span>
+          </div>
+          <div class="tool-list">
+            <button class="tool-button active" data-tool="hoe"><span class="tool-key">1</span><span class="tool-icon">⚒</span><span class="tool-name">Hoe</span></button>
+            <button class="tool-button" data-tool="seed"><span class="tool-key">2</span><span class="tool-icon">🌰</span><span class="tool-name">Seeds</span><span id="seed-count" class="tool-count">6</span></button>
+            <button class="tool-button" data-tool="water"><span class="tool-key">3</span><span class="tool-icon">💧</span><span class="tool-name">Water</span></button>
+            <button class="tool-button" data-tool="harvest"><span class="tool-key">4</span><span class="tool-icon">🧺</span><span class="tool-name">Harvest</span></button>
+          </div>
+        </section>
+        <div class="controls">
+          <strong>WASD / arrows</strong> move · <strong>Space / E</strong> use tool<br>
+          <strong>1–4</strong> choose tool · Visit the <strong>market</strong> to sell/buy<br>
+          Crops grow automatically; watering speeds them up.<br>
+          Go inside your <strong>cabin</strong> and press E to sleep.
+        </div>
+      </aside>
+      <div id="overlay" class="overlay">
+        <div class="intro-card">
+          <div class="intro-icon" aria-hidden="true">🌾</div>
+          <div class="intro-kicker">A four-season farming adventure</div>
+          <h2 id="overlay-title">Welcome to HarvestBound</h2>
+          <p id="overlay-copy">Plant, water, and harvest crops. They grow over time on their own, and watering gives them a head start. Complete seasonal tasks, sell your harvest, and earn enough to keep your farm running.</p>
+          <div class="season-pills" aria-label="Four seasons">
+            <span>🌷 Spring</span><span>☀️ Summer</span><span>🍂 Autumn</span><span>❄️ Winter</span>
+          </div>
+          <section class="character-picker" aria-labelledby="character-heading">
+            <h3 id="character-heading">Choose your farmkeeper</h3>
+            <p class="character-hint">Who will lead the farm through all four seasons?</p>
+            <div class="character-options" role="group" aria-label="Choose a character">
+              <button class="character-option" type="button" data-character="Carlo" aria-pressed="false">
+                <img class="character-avatar" src="resources/carlo.profile.png" alt="">
+                <span class="character-name">Carlo</span>
+                <span class="character-role">Farmkeeper</span>
+              </button>
+              <button class="character-option" type="button" data-character="Angel" aria-pressed="false">
+                <img class="character-avatar" src="resources/angel.profile.png" alt="">
+                <span class="character-name">Angel</span>
+                <span class="character-role">Farmkeeper</span>
+              </button>
+              <button class="character-option" type="button" data-character="Karl" aria-pressed="false">
+                <img class="character-avatar" src="resources/karl.profile.png" alt="">
+                <span class="character-name">Karl</span>
+                <span class="character-role">Farmkeeper</span>
+              </button>
+            </div>
+          </section>
+          <div class="intro-goal"><strong>Your goal</strong> Tend the farm, finish each season's task, and survive the year.</div>
+          <button id="start-button" class="start-button" type="button" disabled>Choose a farmer to begin</button>
+          <div class="intro-foot" hidden></div>
+        </div>
+      </div>
+    </section>
+    <footer class="footer">
+      <span>Tend your crops, earn a living, and see every season through.</span>
+      <div class="footer-actions">
+        <span>Crops grow automatically; watering speeds them up.</span>
+        <button id="about-button" class="about-button" type="button" aria-haspopup="dialog" aria-controls="about-dialog">About the game</button>
+      </div>
+    </footer>
+  </main>
+
+  <dialog id="about-dialog" class="about-dialog" aria-labelledby="about-title">
+    <div class="about-header">
+      <div>
+        <div class="about-kicker">The project</div>
+        <h2 id="about-title">About HarvestBound</h2>
+      </div>
+      <button id="about-close" class="about-close" type="button" aria-label="Close about HarvestBound">×</button>
+    </div>
+    <div class="about-content">
+      <section class="about-section about-intro">
+        <h3>Description</h3>
+        <p>HarvestBound is a simple 2D farming game made in Godot. The player manages a small farm by planting, watering, and harvesting crops. The game has four seasons, and each season gives the player different tasks to complete.</p>
+      </section>
+      <section class="about-section">
+        <h3>General objectives</h3>
+        <p>Create a simple and fun 2D farming game where players can experience basic farming and manage their farm through different seasons.</p>
+      </section>
+      <section class="about-section">
+        <h3>Specific objectives</h3>
+        <ul>
+          <li>Plant, water, and harvest crops.</li>
+          <li>Include Spring, Summer, Autumn, and Winter.</li>
+          <li>Earn money by selling crops.</li>
+          <li>Complete tasks for each season.</li>
+          <li>Add basic player movement and interaction.</li>
+          <li>Create the game using Godot.</li>
+        </ul>
+      </section>
+      <section class="about-section">
+        <h3>Goal</h3>
+        <p>Survive all four seasons by taking care of the farm, completing tasks, and earning enough money to keep the farm running.</p>
+      </section>
+      <section class="about-section">
+        <h3>Benefits</h3>
+        <ul>
+          <li><strong>Players:</strong> A simple and enjoyable farming game.</li>
+          <li><strong>Students:</strong> Practice programming and game development.</li>
+          <li><strong>Learning:</strong> Explore basic farming and resource management.</li>
+          <li><strong>Teamwork:</strong> Give each member a chance to contribute.</li>
+        </ul>
+      </section>
+      <section class="about-section about-conclusion">
+        <h3>Conclusion</h3>
+        <p>HarvestBound focuses on planting, harvesting, earning money, and surviving the four seasons. It also helps improve skills in Godot, programming, and teamwork.</p>
+      </section>
+    </div>
+    <div class="about-footer" hidden>
+      <span></span>
+      <strong></strong>
+    </div>
+  </dialog>
+
+  <script src="game.js" defer></script>
+</body>
+</html>

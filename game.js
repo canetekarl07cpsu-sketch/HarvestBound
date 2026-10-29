@@ -8,7 +8,7 @@
       const seasons = ["Spring", "Summer", "Autumn", "Winter"];
       const cropStageDuration = 12000;
       const waterGrowthBoost = 3000;
-      const weatherDuration = 60000;
+      const weatherDuration = 30000;
       const seedBundleSize = 3;
       const seedBundlePrice = 12;
       const cropSalePrice = 15;

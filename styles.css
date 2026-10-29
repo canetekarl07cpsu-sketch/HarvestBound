@@ -162,6 +162,23 @@
     }
     .stat-label { color: #7a8372; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
     .stat-value { margin-top: 3px; font-family: Georgia, serif; font-size: 18px; font-weight: 700; }
+    .health-card { padding: 11px 13px; }
+    .health-track { height: 8px; margin-top: 8px; overflow: hidden; border-radius: 999px; background: #e7e2d3; }
+    .health-fill { width: 100%; height: 100%; border-radius: inherit; background: #69a65f; transition: width .25s ease, background .25s ease; }
+    .health-fill.health-low { background: #d26c4d; }
+    .session-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .session-button, .secondary-button {
+      padding: 9px 10px;
+      border: 1px solid #d8d1b8;
+      border-radius: 9px;
+      color: #40533f;
+      background: #fffdf7;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .session-button:hover, .secondary-button:hover { border-color: #9eb882; background: #f0f5e8; }
+    .session-button:disabled { opacity: .55; cursor: not-allowed; }
     .inventory { display: flex; justify-content: space-between; gap: 8px; color: #52604e; font-size: 12px; }
     .inventory + .inventory { margin-top: 7px; }
     .inventory strong { color: #2e4434; }
@@ -358,7 +375,11 @@
     }
     .start-button:hover { background: #f6d77f; transform: translateY(-1px); }
     .start-button:disabled { color: #7c806c; background: #e5dec6; box-shadow: 0 4px 0 #c9c1a8; cursor: not-allowed; transform: none; }
+    .overlay-actions { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 9px; }
+    .overlay-actions [hidden] { display: none; }
+    .overlay-actions .secondary-button { padding: 11px 15px; }
     .intro-foot { margin-top: 10px; color: #8a927f; font-size: 10px; }
+    button:focus-visible { outline: 3px solid #4e8957; outline-offset: 3px; }
     .footer {
       display: flex;
       justify-content: space-between;

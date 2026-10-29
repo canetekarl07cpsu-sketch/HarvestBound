@@ -29,7 +29,7 @@
       </div>
       <aside class="side-panel" aria-label="Farm status">
         <section class="season-card" id="season-card">
-          <div id="farm-owner" class="season-label">Your farm • year one</div>
+          <div id="farm-owner" class="season-label">Level 1 of 4</div>
           <div id="season-name" class="season-name">Spring</div>
           <div class="day-meta">
             <div id="day-line" class="day-line">Day 1 of 28</div>
@@ -48,9 +48,21 @@
           </div>
         </section>
         <section class="stats" aria-label="Farm resources">
+          <div class="stat"><div class="stat-label">Score</div><div id="score" class="stat-value">0</div></div>
+          <div class="stat"><div class="stat-label">Lives</div><div id="lives" class="stat-value">♥ ♥ ♥</div></div>
           <div class="stat"><div class="stat-label">Coins</div><div id="coins" class="stat-value">35 ✦</div></div>
           <div class="stat"><div class="stat-label">Harvest</div><div id="harvest" class="stat-value">0 🥕</div></div>
         </section>
+        <section class="card health-card" aria-label="Player health">
+          <div class="inventory"><strong>Health</strong><strong id="health-value">100 / 100</strong></div>
+          <div class="health-track" role="progressbar" aria-label="Health" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100">
+            <div id="health-fill" class="health-fill"></div>
+          </div>
+        </section>
+        <div class="session-controls">
+          <button id="pause-button" class="session-button" type="button" aria-label="Pause game">Pause · Esc</button>
+          <button id="sound-button" class="session-button" type="button" aria-pressed="true">Sound: On</button>
+        </div>
         <section class="card">
           <h2 class="card-title">Satchel</h2>
           <div class="inventory"><span>Seeds</span><strong id="seeds">6 packets</strong></div>
@@ -86,7 +98,8 @@
           <strong>WASD / arrows</strong> move · <strong>Space / E</strong> use tool<br>
           <strong>1–4</strong> choose tool · Visit the <strong>market</strong> to sell/buy<br>
           Crops grow automatically; watering speeds them up.<br>
-          Go inside your <strong>cabin</strong> and press E to sleep.
+          Go inside your <strong>cabin</strong> and press E to sleep.<br>
+          Avoid the spiked fence; touching it costs health.
         </div>
       </aside>
       <div id="overlay" class="overlay">
@@ -94,7 +107,7 @@
           <div class="intro-icon" aria-hidden="true">🌾</div>
           <div class="intro-kicker">A four-season farming adventure</div>
           <h2 id="overlay-title">Welcome to HarvestBound</h2>
-          <p id="overlay-copy">Plant, water, and harvest crops. They grow over time on their own, and watering gives them a head start. Complete seasonal tasks, sell your harvest, and earn enough to keep your farm running.</p>
+          <p id="overlay-copy">Plant, water, and harvest crops. Complete each seasonal goal to earn score and survive all four levels. Missed goals cost health and a life. Rest in your cabin to advance to the next day.</p>
           <div class="season-pills" aria-label="Four seasons">
             <span>🌷 Spring</span><span>☀️ Summer</span><span>🍂 Autumn</span><span>❄️ Winter</span>
           </div>
@@ -119,8 +132,15 @@
               </button>
             </div>
           </section>
-          <div class="intro-goal"><strong>Your goal</strong> Tend the farm, finish each season's task, and survive the year.</div>
-          <button id="start-button" class="start-button" type="button" disabled>Choose a farmer to begin</button>
+          <div class="intro-goal"><strong>Your goal</strong> Complete Spring, Summer, Autumn, and Winter goals. Harvest and sales earn score; missed seasonal goals cost one life.</div>
+          <div class="overlay-actions">
+            <button id="start-button" class="start-button" type="button" disabled>Choose a farmer to begin</button>
+            <button id="resume-button" class="start-button" type="button" hidden>Resume</button>
+            <button id="save-game-button" class="secondary-button" type="button" hidden>Save game</button>
+            <button id="load-game-button" class="secondary-button" type="button" hidden>Load saved game</button>
+            <button id="menu-button" class="secondary-button" type="button" hidden>Main menu</button>
+          </div>
+          <div id="save-status" class="intro-foot" role="status" aria-live="polite"></div>
           <div class="intro-foot" hidden></div>
         </div>
       </div>
@@ -145,7 +165,7 @@
     <div class="about-content">
       <section class="about-section about-intro">
         <h3>Description</h3>
-        <p>HarvestBound is a simple 2D farming game made in Godot. The player manages a small farm by planting, watering, and harvesting crops. The game has four seasons, and each season gives the player different tasks to complete.</p>
+        <p>HarvestBound is a browser-based farming game built with HTML, CSS, JavaScript, and Canvas. Plant, water, and harvest crops while completing goals across four seasonal levels.</p>
       </section>
       <section class="about-section">
         <h3>General objectives</h3>
@@ -158,8 +178,9 @@
           <li>Include Spring, Summer, Autumn, and Winter.</li>
           <li>Earn money by selling crops.</li>
           <li>Complete tasks for each season.</li>
-          <li>Add basic player movement and interaction.</li>
-          <li>Create the game using Godot.</li>
+          <li>Earn score and manage health and lives.</li>
+          <li>Pause, save, and resume a farm.</li>
+          <li>Play sound effects and manage game audio.</li>
         </ul>
       </section>
       <section class="about-section">
@@ -177,7 +198,7 @@
       </section>
       <section class="about-section about-conclusion">
         <h3>Conclusion</h3>
-        <p>HarvestBound focuses on planting, harvesting, earning money, and surviving the four seasons. It also helps improve skills in Godot, programming, and teamwork.</p>
+        <p>HarvestBound combines seasonal farming goals with score, health, lives, sound effects, pause controls, and local save/load for a complete browser-game loop.</p>
       </section>
     </div>
     <div class="about-footer" hidden>
